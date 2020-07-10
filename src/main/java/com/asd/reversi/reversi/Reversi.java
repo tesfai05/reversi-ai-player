@@ -1,12 +1,11 @@
 package com.asd.reversi.reversi;
 
+import com.asd.reversi.reversi.evaluation.RealTimeEval;
 import com.asd.reversi.reversi.model.MoveDetails;
 import com.asd.reversi.reversi.model.ReversiBoard;
-import com.asd.reversi.reversi.state.IState;
-import com.asd.reversi.reversi.state.StateContex;
-import com.asd.reversi.reversi.strategy.StrategyIMpl;
-import com.asd.reversi.reversi.strategy.StratgyContext;
-import com.asd.reversi.reversi.util.ArrayUtil;
+import com.asd.reversi.reversi.player.ComputerPlayer;
+import com.asd.reversi.reversi.player.Player;
+import com.asd.reversi.reversi.util.Helper;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -19,7 +18,7 @@ public class Reversi {
         if (reversiBoard.getPlayerFactory().getPlayers().size() == 0) {
             reversiBoard.getPlayerFactory().createPlayer("human",username,1);
         } else if (reversiBoard.getPlayerFactory().getPlayers().size() == 1) {
-            reversiBoard.getPlayerFactory().createPlayer("human",username,-1);
+            reversiBoard.getPlayerFactory().createPlayer("computer",username,-1);
         }
         return reversiBoard;
     }
@@ -28,7 +27,7 @@ public class Reversi {
         if (reversiBoard.isFinished()) {
             reversiBoard.reset();
         }
-        reversiBoard.setNext(calcNextMoves(reversiBoard.getTurn()));
+        reversiBoard.setNext(Helper.calcNextMoves(reversiBoard.getBoard() ,reversiBoard.getTurn()));
     }
 
     public ReversiBoard move(MoveDetails details) throws Exception {
@@ -38,38 +37,51 @@ public class Reversi {
         if (!isMoveValid(details)) {
             throw new Exception("It's not a valid movement");
         }
-        doMove(reversiBoard.getBoard(), details);
-        if (!isGameFinished()) {
+
+        Helper.doMove(reversiBoard.getBoard(), details);
+        if (!Helper.isGameFinished(reversiBoard.getBoard())) {
             setTurn(details);
-            reversiBoard.setNext(calcNextMoves(reversiBoard.getTurn()));
+            reversiBoard.setNext(Helper.calcNextMoves(reversiBoard.getBoard() ,reversiBoard.getTurn()));
         } else {
             reversiBoard.setFinished(true);
             System.out.println("game is over"); // for game  is over state
         }
+
+        if(reversiBoard.getPlayerFactory().getPlayers().get(1).getName().equalsIgnoreCase("computer") && reversiBoard.getTurn() == -1){
+            move(generateComputerMove());
+        }
+
         return reversiBoard;
     }
 
-    public boolean doMove(int[][] board, MoveDetails details) {
-        StratgyContext context = new StratgyContext(new StrategyIMpl()) ;
-        return context.execute(board, details);
-    }
-
-
-    private int[][] calcNextMoves(int player) {
-        int[][] next = new int[8][8];
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                int[][] board = ArrayUtil.copy(reversiBoard.getBoard());
-                if (board[i][j] == 0 && doMove(board, new MoveDetails(player, i, j))) {
-                    next[i][j] = 2*player;
-                }
+    public MoveDetails generateComputerMove(){
+        MoveDetails details = new MoveDetails();
+        details.setPlayer(-1);
+        ComputerPlayer computerPlayer = null;
+        for (Player p: reversiBoard.getPlayerFactory().getPlayers()) {
+            if(p.getFlag() == details.getPlayer()){
+                computerPlayer = (ComputerPlayer) p;
             }
         }
-        return next;
+
+        details = ComputerPlayer.solve(reversiBoard.getBoard(), computerPlayer.getFlag(), 5,new RealTimeEval(new int[][] {
+                {8, 85, -40, 10, 210, 520},
+                {8, 85, -40, 10, 210, 520},
+                {33, -50, -15, 4, 416, 2153},
+                {46, -50, -1, 3, 612, 4141},
+                {51, -50, 62, 3, 595, 3184},
+                {33, -5,  66, 2, 384, 2777},
+                {44, 50, 163, 0, 443, 2568},
+                {13, 50, 66, 0, 121, 986},
+                {4, 50, 31, 0, 27, 192},
+                {8, 500, 77, 0, 36, 299}}, new int[] {0, 55, 56, 57, 58, 59, 60, 61, 62, 63}));
+        details.setPlayer(-1);
+        //setTurn(details);
+        return details;
     }
 
     private boolean isMoveValid(MoveDetails details) {
-        int[][] nextMoves = calcNextMoves(details.getPlayer());
+        int[][] nextMoves = Helper.calcNextMoves(reversiBoard.getBoard(), details.getPlayer());
         return nextMoves[details.getX()][details.getY()] == 2*details.getPlayer();
     }
 
@@ -79,7 +91,7 @@ public class Reversi {
 
     private boolean canOtherPlayerMove(int player) {
         int otherPlayer = -player;
-        int[][] nextMoves = calcNextMoves(otherPlayer);
+        int[][] nextMoves = Helper.calcNextMoves(reversiBoard.getBoard(), otherPlayer);
         return Arrays.stream(nextMoves).flatMapToInt(Arrays::stream).anyMatch(item -> item == (2*otherPlayer));
     }
 
@@ -88,29 +100,4 @@ public class Reversi {
             reversiBoard.setTurn(-reversiBoard.getTurn());
         }
     }
-
-    private boolean isGameFinished() {
-        checkState();
-        return Arrays.stream(reversiBoard.getBoard())
-                .flatMapToInt(Arrays::stream)
-                .noneMatch(item -> item == 0);
-    }
-
-    public IState checkState() {
-        //	private final IState state =null;
-        long playerNegative=	Arrays.stream(reversiBoard.getBoard())
-                .flatMapToInt(Arrays::stream)
-                .filter(x-> x==-1).count();
-
-        long playerPositive=Arrays.stream(reversiBoard.getBoard())
-                .flatMapToInt(Arrays::stream)
-                .filter(x-> x==1).count();
-
-        // return state depending on the input (alter its behaviour when its internal state chng)
-        StateContex cont = new StateContex(playerPositive, playerNegative);
-        reversiBoard.setState(cont.getState());
-        return cont.getState(); // new StateWinPositive()
-    }
-
 }
-

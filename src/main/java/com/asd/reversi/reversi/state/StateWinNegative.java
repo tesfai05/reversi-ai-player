@@ -2,11 +2,6 @@ package com.asd.reversi.reversi.state;
 
 public class StateWinNegative implements IState  {
 
-	/**
-	 * 
-	 */
-	
-	
 	
 	private static final long serialVersionUID = 1L;
 	private String  status="Negative Win";
