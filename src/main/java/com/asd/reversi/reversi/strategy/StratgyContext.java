@@ -15,5 +15,4 @@ public class StratgyContext {
 		return strategy.Move(board, details);
 		
 	}
-
 }

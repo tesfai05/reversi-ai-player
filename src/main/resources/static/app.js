@@ -107,8 +107,10 @@ function doMove(playRoom) {
     if (playRoom.finished === true) {
         var winner = $('#concludeWinner');
         winner.append('<p>'+playRoom.winner+'</p>');
+        winner.append('<button id="reset" type="button" class="btn btn-danger">Reset</button>');
         winner.css("display:block");
         disconnect();
+        initial();
     }
 }
 
