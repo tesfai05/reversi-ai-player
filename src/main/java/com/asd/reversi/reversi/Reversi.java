@@ -43,6 +43,7 @@ public class Reversi {
             setTurn(details);
             reversiBoard.setNext(Helper.calcNextMoves(reversiBoard.getBoard() ,reversiBoard.getTurn()));
         } else {
+            Helper.checkState(reversiBoard.getBoard());
             reversiBoard.setFinished(true);
             System.out.println("game is over"); // for game  is over state
         }
@@ -64,7 +65,7 @@ public class Reversi {
             }
         }
 
-        details = ComputerPlayer.solve(reversiBoard.getBoard(), computerPlayer.getFlag(), 5,new RealTimeEval(new int[][] {
+        details = ComputerPlayer.solve(reversiBoard.getBoard(), computerPlayer.getFlag(), 3,new RealTimeEval(new int[][] {
                 {8, 85, -40, 10, 210, 520},
                 {8, 85, -40, 10, 210, 520},
                 {33, -50, -15, 4, 416, 2153},

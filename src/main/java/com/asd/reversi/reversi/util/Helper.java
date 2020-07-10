@@ -8,7 +8,6 @@ import com.asd.reversi.reversi.strategy.StratgyContext;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 
 public class Helper {
     private static ReversiBoard reversiBoard = ReversiBoard.getInstance();
@@ -49,7 +48,6 @@ public class Helper {
     }
 
     public static boolean isGameFinished(int[][] board) {
-        Helper.checkState(board);
         return Arrays.stream(board)
                 .flatMapToInt(Arrays::stream)
                 .noneMatch(item -> item == 0);
