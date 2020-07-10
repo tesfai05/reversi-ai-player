@@ -3,7 +3,7 @@ package com.asd.reversi.reversi.strategy;
 import com.asd.reversi.reversi.model.MoveDetails;
 import com.asd.reversi.reversi.util.ArrayUtil;
 
-public class StrategyIMpl implements Strategy {
+public class StrategyImpl1 implements Strategy {
 
 	@Override
 	public boolean Move(int[][] board, MoveDetails details) {

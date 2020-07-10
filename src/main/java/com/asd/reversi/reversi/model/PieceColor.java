@@ -2,7 +2,7 @@ package com.asd.reversi.reversi.model;
 
 public enum PieceColor {
 
-    WHITE(1), BLACK(-1);
+    WHITE(1), BLACK(-1),NONE(0);
 
     PieceColor(int value) {
         this.value = value;
