@@ -6,7 +6,7 @@ var myPieceColor = null;
 var otherPieceColor = null;
 
 function connect() {
-    var socket = new SockJS('https://reversi-app-asd.herokuapp.com/');
+    var socket = new SockJS('/reversi');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
