@@ -106,7 +106,7 @@ function doMove(playRoom) {
     $(".box.next").off('click').on('click', function() { move($(this)); });
     if (playRoom.finished === true) {
         var winner = $('#concludeWinner');
-        winner.append('<p>'+playRoom.getWinner()+'</p>');
+        winner.append('<p>'+playRoom.winner+'</p>');
         winner.css("display:block");
         disconnect();
     }

@@ -10,10 +10,18 @@ public class BoardModel {
     protected int[][] next;
     protected int turn = 1;
     protected boolean finished = false;
-    protected String winner;
+    protected String winner = "";
 
     public BoardModel(int c, int r) {
         board = new int[c][r];
         next = new int[c][r];
+    }
+
+    public String getWinner() {
+        return winner;
+    }
+
+    public void setWinner(String winner) {
+        this.winner = winner;
     }
 }

@@ -41,14 +41,14 @@ public class Reversi {
     }
 
     public ReversiBoard move(MoveDetails details) throws Exception {
+        if (details.getX() != -5 && details.getY() != -5) { // Error Check Temporarily
         if (!isItPlayersTurn(details)) {
             throw new Exception("It's not your turn");
         }
         if (!isMoveValid(details)) {
             throw new Exception("It's not a valid movement");
         }
-
-        Helper.doMove(reversiBoard.getBoard(), details);
+            Helper.doMove(reversiBoard.getBoard(), details);
         if (!Helper.isGameFinished(reversiBoard.getBoard())) {
             setTurn(details);
             reversiBoard.setNext(Helper.calcNextMoves(reversiBoard.getBoard() ,reversiBoard.getTurn()));
@@ -61,7 +61,7 @@ public class Reversi {
         if(reversiBoard.getPlayerFactory().getPlayers().get(1).getName().equalsIgnoreCase("computer") && reversiBoard.getTurn() == -1){
             move(generateComputerMove());
         }
-
+        }
         return reversiBoard;
     }
 
@@ -86,7 +86,11 @@ public class Reversi {
                 {13, 50, 66, 0, 121, 986},
                 {4, 50, 31, 0, 27, 192},
                 {8, 500, 77, 0, 36, 299}}, new int[] {0, 55, 56, 57, 58, 59, 60, 61, 62, 63}));
-        //setTurn(details);
+        //Move Checking
+        if(details == null) { details = new MoveDetails(-5,-5,-1);}
+            if (details.getX() == -5 && details.getY() == -5) {
+                    setTurn(details);
+            }
         return details;
     }
 
