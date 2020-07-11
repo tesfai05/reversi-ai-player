@@ -77,7 +77,7 @@ function move(box) {
     var id = box.attr('id');
     var x = parseInt(id[4]);
     var y = parseInt(id[5]);
-    stompClient.send("/game/makeMove", {}, JSON.stringify({'player': myFlag, 'x': x, 'y': y}));
+    stompClient.send("/game/move", {}, JSON.stringify({'player': myFlag, 'x': x, 'y': y}));
 }
 
 function doMove(playRoom) {
