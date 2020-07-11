@@ -9,6 +9,7 @@ import com.asd.reversi.reversi.util.Helper;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class Reversi {
@@ -21,6 +22,15 @@ public class Reversi {
             reversiBoard.getPlayerFactory().createPlayer("computer",username,-1);
         }
         return reversiBoard;
+    }
+
+    public List<Player> registerPlayerAsResult(String username) {
+        if (reversiBoard.getPlayerFactory().getPlayers().size() == 0) {
+            reversiBoard.getPlayerFactory().createPlayer("human",username,1);
+        } else if (reversiBoard.getPlayerFactory().getPlayers().size() == 1) {
+            reversiBoard.getPlayerFactory().createPlayer("computer",username,-1);
+        }
+        return reversiBoard.getPlayerFactory().getPlayers();
     }
 
     public void startGame() {
@@ -76,7 +86,6 @@ public class Reversi {
                 {13, 50, 66, 0, 121, 986},
                 {4, 50, 31, 0, 27, 192},
                 {8, 500, 77, 0, 36, 299}}, new int[] {0, 55, 56, 57, 58, 59, 60, 61, 62, 63}));
-        details.setPlayer(-1);
         //setTurn(details);
         return details;
     }

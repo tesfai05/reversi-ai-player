@@ -14,9 +14,7 @@ public class StateWinNegative implements IState  {
 	
 	@Override
 	public String  checkWinOrDraw() {
-		return  "Black win the game ";
-		
-		
+		return  "Black won the game ";
 	}
 
 

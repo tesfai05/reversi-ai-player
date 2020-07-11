@@ -6,7 +6,7 @@ var myPieceColor = null;
 var otherPieceColor = null;
 
 function connect() {
-    var socket = new SockJS('/reversi');
+    var socket = new SockJS('https://reversi-app-asd.herokuapp.com/');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
@@ -77,7 +77,7 @@ function move(box) {
     var id = box.attr('id');
     var x = parseInt(id[4]);
     var y = parseInt(id[5]);
-    stompClient.send("/game/move", {}, JSON.stringify({'player': myFlag, 'x': x, 'y': y}));
+    stompClient.send("/game/makeMove", {}, JSON.stringify({'player': myFlag, 'x': x, 'y': y}));
 }
 
 function doMove(playRoom) {
@@ -106,11 +106,9 @@ function doMove(playRoom) {
     $(".box.next").off('click').on('click', function() { move($(this)); });
     if (playRoom.finished === true) {
         var winner = $('#concludeWinner');
-        winner.append('<p>'+playRoom.winner+'</p>');
-        winner.append('<button id="reset" type="button" class="btn btn-danger">Reset</button>');
+        winner.append('<p>'+playRoom.getWinner()+'</p>');
         winner.css("display:block");
         disconnect();
-        initial();
     }
 }
 

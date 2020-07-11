@@ -6,7 +6,7 @@ import com.asd.reversi.reversi.util.Helper;
 
 import java.util.ArrayList;
 
-public class ComputerPlayer implements Player{
+public class ComputerPlayer implements Player {
 
     private static int nodesExplored;
     private String name;
