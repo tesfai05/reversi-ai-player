@@ -1,5 +1,13 @@
 package com.asd.reversi.reversi;
 
+import com.asd.reversi.command.Command;
+import com.asd.reversi.reversi.model.MoveDetails;
+import com.asd.reversi.reversi.model.ReversiBoard;
+import com.asd.reversi.reversi.state.IState;
+import com.asd.reversi.reversi.state.StateContex;
+import com.asd.reversi.reversi.strategy.StrategyImpl;
+import com.asd.reversi.reversi.strategy.StratgyContext;
+import com.asd.reversi.reversi.util.ArrayUtil;
 import com.asd.reversi.reversi.evaluation.RealTimeEval;
 import com.asd.reversi.reversi.model.MoveDetails;
 import com.asd.reversi.reversi.model.ReversiBoard;
@@ -58,6 +66,15 @@ public class Reversi {
             System.out.println("game is over"); // for game  is over state
         }
 
+        return reversiBoard;
+    }
+
+    public boolean doMove(int[][] board, MoveDetails details) {
+        StratgyContext context = new StratgyContext(new StrategyImpl()) ;
+        return context.execute(board, details);
+    }
+
+
         if(reversiBoard.getPlayerFactory().getPlayers().get(1).getName().equalsIgnoreCase("computer") && reversiBoard.getTurn() == reversiBoard.getPlayerFactory().getPlayers().get(1).getFlag()){
             move(Helper.generateComputerMove());
         }
@@ -78,4 +95,27 @@ public class Reversi {
     public MoveDetails generateComputerMove() {
        return Helper.generateComputerMove();
     }
+
+
+    public IState checkState() {
+        //	private final IState state =null;
+        long playerNegative=	Arrays.stream(reversiBoard.getBoard())
+                .flatMapToInt(Arrays::stream)
+                .filter(x-> x==-1).count();
+
+        long playerPositive=Arrays.stream(reversiBoard.getBoard())
+                .flatMapToInt(Arrays::stream)
+                .filter(x-> x==1).count();
+
+        // return state depending on the input (alter its behaviour when its internal state chng)
+        StateContex cont = new StateContex(playerPositive, playerNegative);
+        reversiBoard.setState(cont.getState());
+        return cont.getState(); // new StateWinPositive()
+    }
+
+    public void submit(Command command){
+       command.execute();
+    }
+
+
 }
