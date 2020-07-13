@@ -53,4 +53,7 @@ public class ReversiBoard extends BoardModel{
         this.setWinner(state.checkWinOrDraw());
     }
 
+//    private void setWinner(String checkWinOrDraw) {
+//    }
+
 }

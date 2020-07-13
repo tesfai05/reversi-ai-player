@@ -1,10 +1,11 @@
 package com.asd.reversi.reversi;
 
+import com.asd.reversi.command.Command;
 import com.asd.reversi.reversi.model.MoveDetails;
 import com.asd.reversi.reversi.model.ReversiBoard;
 import com.asd.reversi.reversi.state.IState;
 import com.asd.reversi.reversi.state.StateContex;
-import com.asd.reversi.reversi.strategy.StrategyIMpl;
+import com.asd.reversi.reversi.strategy.StrategyImpl;
 import com.asd.reversi.reversi.strategy.StratgyContext;
 import com.asd.reversi.reversi.util.ArrayUtil;
 import org.springframework.stereotype.Component;
@@ -50,7 +51,7 @@ public class Reversi {
     }
 
     public boolean doMove(int[][] board, MoveDetails details) {
-        StratgyContext context = new StratgyContext(new StrategyIMpl()) ;
+        StratgyContext context = new StratgyContext(new StrategyImpl()) ;
         return context.execute(board, details);
     }
 
@@ -110,6 +111,10 @@ public class Reversi {
         StateContex cont = new StateContex(playerPositive, playerNegative);
         reversiBoard.setState(cont.getState());
         return cont.getState(); // new StateWinPositive()
+    }
+
+    public void submit(Command command){
+       command.execute();
     }
 
 }
