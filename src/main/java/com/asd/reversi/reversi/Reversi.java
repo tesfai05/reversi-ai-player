@@ -13,7 +13,6 @@ import com.asd.reversi.reversi.util.Helper;
 import com.asd.reversi.reversi.util.Point;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
 
 
 @Component
@@ -21,17 +20,17 @@ public class Reversi {
     private static ReversiBoard reversiBoard = ReversiBoard.getInstance();
 
     public ReversiBoard registerPlayer(String username) {
-        if (reversiBoard.getPlayerFactory().getPlayers().size() == 0) {
-            reversiBoard.getPlayerFactory().createPlayer("human",username,1);
-        } else if (reversiBoard.getPlayerFactory().getPlayers().size() == 1) {
-            reversiBoard.getPlayerFactory().createPlayer("computer",username,-1);
-        }
+//        if (reversiBoard.getPlayerFactory().getPlayers().size() == 0) {
+//            reversiBoard.getPlayerFactory().createPlayer("human",username,1);
+//        } else if (reversiBoard.getPlayerFactory().getPlayers().size() == 1) {
+//            reversiBoard.getPlayerFactory().createPlayer("computer",username,-1);
+//        }
         return reversiBoard;
     }
 
     public Player registerPlayers(String username) {
         reversiBoard.getPlayerFactory().createPlayer("remote",username,-1);
-        reversiBoard.getPlayerFactory().createPlayer("computer",username,1);
+        reversiBoard.getPlayerFactory().createPlayer("computer","computer",1);
         return reversiBoard.getPlayerFactory().getPlayers().stream().filter(x->x.getName().equalsIgnoreCase(username)).findAny().get();
     }
 
@@ -59,9 +58,9 @@ public class Reversi {
                 reversiBoard.setFinished(true);
                 System.out.println("game is over"); // for game  is over state
             }
-            if (reversiBoard.getPlayerFactory().getPlayers().get(1).getName().equalsIgnoreCase("computer") && reversiBoard.getTurn() == reversiBoard.getPlayerFactory().getPlayers().get(1).getFlag()) {
-                move(Helper.generateComputerMove());
-            }
+//            if (reversiBoard.getPlayerFactory().getPlayers().get(1).getName().equalsIgnoreCase("computer") && reversiBoard.getTurn() == reversiBoard.getPlayerFactory().getPlayers().get(1).getFlag()) {
+//                move(Helper.generateComputerMove());
+//            }
         }
         return reversiBoard;
     }
@@ -99,5 +98,9 @@ public class Reversi {
         MoveDetails computerMove = generateComputerMove();
         move(computerMove);
         return new Point(computerMove.getX(), computerMove.getY());
+    }
+
+    public ReversiBoard getBoard() {
+        return reversiBoard;
     }
 }

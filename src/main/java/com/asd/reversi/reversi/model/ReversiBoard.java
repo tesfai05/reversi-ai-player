@@ -38,7 +38,9 @@ public class ReversiBoard extends BoardModel{
     }
 
     public Player getPlayerA(){
-        return getPlayerFactory().getPlayers().get(0);
+        if (getPlayerFactory().getPlayers().size() > 0)
+            return getPlayerFactory().getPlayers().get(0);
+        return null;
     }
 
     public Player getPlayerB(){

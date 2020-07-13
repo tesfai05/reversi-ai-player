@@ -9,10 +9,7 @@ import com.asd.reversi.service.PlayRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class PlayRoomController {
@@ -33,6 +30,11 @@ public class PlayRoomController {
         return playRoomService.move(details);
     }
 
+
+    private ReversiBoard getBoard() {
+        return playRoomService.getBoard();
+    }
+
     @CrossOrigin
     @PostMapping("/registerPlayer")
     public Response registerAsJSON(String username) {
@@ -47,7 +49,9 @@ public class PlayRoomController {
     @CrossOrigin
     @PostMapping("/makeMove")
     public Point moveAsJSON(@RequestBody Point details) throws Exception {
-        return playRoomService.movePoint(details);
+        Point p = playRoomService.movePoint(details);
+        getBoard();
+        return p;
     }
 
     @PostMapping("/generateMove")

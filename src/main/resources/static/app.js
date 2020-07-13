@@ -33,7 +33,7 @@ function disconnect() {
 
 function register() {
     myUsername = $("#username").val();
-    stompClient.send("/game/register", {}, myUsername);
+    stompClient.send("/game/registerPlayer", {}, myUsername);
 }
 
 function initial(playRoom) {

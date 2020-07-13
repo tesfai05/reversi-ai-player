@@ -1,21 +1,12 @@
 package com.asd.reversi.service;
 
-import com.asd.reversi.reversi.command.Command;
-import com.asd.reversi.reversi.command.HumanMove;
-import com.asd.reversi.reversi.factory.StrategyFactory;
-import com.asd.reversi.reversi.factory.StrategyImplFactory;
 import com.asd.reversi.reversi.Reversi;
 import com.asd.reversi.reversi.model.MoveDetails;
 import com.asd.reversi.reversi.model.ReversiBoard;
-
-import com.asd.reversi.reversi.strategy.Strategy;
-import com.asd.reversi.reversi.strategy.StratgyContext;
 import com.asd.reversi.reversi.player.Player;
 import com.asd.reversi.reversi.util.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class PlayRoomService {
@@ -47,5 +38,9 @@ public class PlayRoomService {
 
     public Point movePoint(Point details) throws Exception {
         return reversi.movePoint(details);
+    }
+
+    public ReversiBoard getBoard() {
+        return reversi.getBoard();
     }
 }
