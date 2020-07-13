@@ -1,15 +1,14 @@
 package com.asd.reversi.service;
 
-import com.asd.reversi.command.Command;
-import com.asd.reversi.command.HumanMove;
-import com.asd.reversi.factory.StrategyFactory;
-import com.asd.reversi.factory.StrategyImplFactory;
+import com.asd.reversi.reversi.command.Command;
+import com.asd.reversi.reversi.command.HumanMove;
+import com.asd.reversi.reversi.factory.StrategyFactory;
+import com.asd.reversi.reversi.factory.StrategyImplFactory;
 import com.asd.reversi.reversi.Reversi;
 import com.asd.reversi.reversi.model.MoveDetails;
 import com.asd.reversi.reversi.model.ReversiBoard;
 
 import com.asd.reversi.reversi.strategy.Strategy;
-import com.asd.reversi.reversi.strategy.StrategyImpl;
 import com.asd.reversi.reversi.strategy.StratgyContext;
 import com.asd.reversi.reversi.player.Player;
 import org.springframework.beans.factory.annotation.Autowired;

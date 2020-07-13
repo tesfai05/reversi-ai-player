@@ -1,4 +1,4 @@
-package com.asd.reversi.factory;
+package com.asd.reversi.reversi.factory;
 
 import com.asd.reversi.reversi.strategy.Strategy;
 

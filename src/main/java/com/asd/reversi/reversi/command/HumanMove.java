@@ -1,4 +1,4 @@
-package com.asd.reversi.command;
+package com.asd.reversi.reversi.command;
 
 import com.asd.reversi.reversi.model.MoveDetails;
 import com.asd.reversi.reversi.strategy.StratgyContext;

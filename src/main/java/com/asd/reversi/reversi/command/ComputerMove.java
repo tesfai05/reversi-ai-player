@@ -1,4 +1,4 @@
-package com.asd.reversi.command;
+package com.asd.reversi.reversi.command;
 
 public class ComputerMove implements Command{
     @Override
