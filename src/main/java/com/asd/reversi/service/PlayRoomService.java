@@ -7,11 +7,15 @@ import com.asd.reversi.factory.StrategyImplFactory;
 import com.asd.reversi.reversi.Reversi;
 import com.asd.reversi.reversi.model.MoveDetails;
 import com.asd.reversi.reversi.model.ReversiBoard;
+
 import com.asd.reversi.reversi.strategy.Strategy;
 import com.asd.reversi.reversi.strategy.StrategyImpl;
 import com.asd.reversi.reversi.strategy.StratgyContext;
+import com.asd.reversi.reversi.player.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PlayRoomService {
@@ -33,6 +37,7 @@ public class PlayRoomService {
         return reversi.move(details);
     }
 
+
     public void playHumanMove(int[][] board,MoveDetails details){
         StrategyFactory factory= new StrategyImplFactory();
 
@@ -43,4 +48,12 @@ public class PlayRoomService {
 
     }
 
+
+    public List<Player> registerPlayerReturnResult(String username) {
+        return reversi.registerPlayerAsResult(username);
+    }
+
+    public MoveDetails generateMove() {
+       return reversi.generateComputerMove();
+    }
 }

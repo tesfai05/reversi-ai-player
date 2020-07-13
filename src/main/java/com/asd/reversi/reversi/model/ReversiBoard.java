@@ -30,8 +30,7 @@ public class ReversiBoard extends BoardModel{
     }
 
     public static ReversiBoard getInstance() {
-    	singletonPlayRoom single =  singletonPlayRoom.INSTANCE;
-    	return single.getPlayroom();
+    	return SingletonPlayRoom.getPlayroom();
     }
 
     public PlayerFactory getPlayerFactory() {
