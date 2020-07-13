@@ -1,8 +1,12 @@
 package com.asd.reversi.reversi;
 
 import com.asd.reversi.reversi.command.Command;
+import com.asd.reversi.reversi.command.HumanMove;
+import com.asd.reversi.reversi.factory.StrategyFactory;
+import com.asd.reversi.reversi.factory.StrategyImplFactory;
 import com.asd.reversi.reversi.model.MoveDetails;
 import com.asd.reversi.reversi.model.ReversiBoard;
+import com.asd.reversi.reversi.strategy.Strategy;
 import com.asd.reversi.reversi.strategy.StrategyImplementation;
 import com.asd.reversi.reversi.strategy.StratgyContext;
 import com.asd.reversi.reversi.player.Player;
@@ -69,6 +73,14 @@ public class Reversi {
         return context.execute(board, details);
     }
 
+
+    public void playHumanMove(int[][] board,MoveDetails details){
+        StrategyFactory factory= new StrategyImplFactory();
+        Strategy strategy=factory.createStrategy() ;
+        StratgyContext stratgyContext=new StratgyContext(strategy);
+        Command command=new HumanMove(stratgyContext,board,details);
+        submit(command);
+    }
 
     private boolean isMoveValid(MoveDetails details) {
         int[][] nextMoves = Helper.calcNextMoves(reversiBoard.getBoard(), details.getPlayer());

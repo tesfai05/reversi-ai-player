@@ -36,18 +36,6 @@ public class PlayRoomService {
         return reversi.move(details);
     }
 
-
-    public void playHumanMove(int[][] board,MoveDetails details){
-        StrategyFactory factory= new StrategyImplFactory();
-
-        Strategy strategy=factory.createStrategy() ;
-     StratgyContext stratgyContext=new StratgyContext(strategy);
-       Command command=new HumanMove(stratgyContext,board,details);
-        reversi.submit(command);
-
-    }
-
-
     public List<Player> registerPlayerReturnResult(String username) {
         return reversi.registerPlayerAsResult(username);
     }
