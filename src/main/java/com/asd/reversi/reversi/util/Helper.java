@@ -307,7 +307,7 @@ public class Helper {
 
     public static MoveDetails generateComputerMove(){
         MoveDetails details = new MoveDetails();
-        details.setPlayer(-1);
+        details.setPlayer(1);
         ComputerPlayer computerPlayer = null;
         for (Player p: reversiBoard.getPlayerFactory().getPlayers()) {
             if(p.getFlag() == details.getPlayer()){

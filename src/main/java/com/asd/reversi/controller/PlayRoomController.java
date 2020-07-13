@@ -3,6 +3,8 @@ package com.asd.reversi.controller;
 import com.asd.reversi.reversi.model.MoveDetails;
 import com.asd.reversi.reversi.model.ReversiBoard;
 import com.asd.reversi.reversi.player.Player;
+import com.asd.reversi.reversi.util.Point;
+import com.asd.reversi.reversi.util.Response;
 import com.asd.reversi.service.PlayRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -11,8 +13,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 public class PlayRoomController {
@@ -35,15 +35,19 @@ public class PlayRoomController {
 
     @CrossOrigin
     @PostMapping("/registerPlayer")
-    public List<Player> registerAsJSON(String username) {
+    public Response registerAsJSON(String username) {
         playRoomService.startGame();
-        return playRoomService.registerPlayerReturnResult(username);
+        Player p = playRoomService.registerPlayers(username);
+        if(p != null)
+            return new Response("player "+p.getName()+ " registered");
+        else
+            return new Response("Error on registering");
     }
 
     @CrossOrigin
     @PostMapping("/makeMove")
-    public ReversiBoard moveAsJSON(@RequestBody MoveDetails details) throws Exception {
-        return playRoomService.move(details);
+    public Point moveAsJSON(@RequestBody Point details) throws Exception {
+        return playRoomService.movePoint(details);
     }
 
     @PostMapping("/generateMove")

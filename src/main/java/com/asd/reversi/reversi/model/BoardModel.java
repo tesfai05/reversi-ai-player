@@ -8,7 +8,7 @@ public class BoardModel {
     protected PlayerFactory playerFactory = new PlayerFactory();
     protected int[][] board;
     protected int[][] next;
-    protected int turn = 1;
+    protected int turn = -1;
     protected boolean finished = false;
     protected String winner = "";
 

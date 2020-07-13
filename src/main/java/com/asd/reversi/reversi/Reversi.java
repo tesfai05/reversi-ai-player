@@ -7,13 +7,14 @@ import com.asd.reversi.reversi.factory.StrategyImplFactory;
 import com.asd.reversi.reversi.model.MoveDetails;
 import com.asd.reversi.reversi.model.ReversiBoard;
 import com.asd.reversi.reversi.strategy.Strategy;
-import com.asd.reversi.reversi.strategy.StrategyImplementation;
 import com.asd.reversi.reversi.strategy.StratgyContext;
 import com.asd.reversi.reversi.player.Player;
 import com.asd.reversi.reversi.util.Helper;
+import com.asd.reversi.reversi.util.Point;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Objects;
+
 
 @Component
 public class Reversi {
@@ -28,13 +29,10 @@ public class Reversi {
         return reversiBoard;
     }
 
-    public List<Player> registerPlayerAsResult(String username) {
-        if (reversiBoard.getPlayerFactory().getPlayers().size() == 0) {
-            reversiBoard.getPlayerFactory().createPlayer("remote",username,-1);
-        } else if (reversiBoard.getPlayerFactory().getPlayers().size() == 1) {
-            reversiBoard.getPlayerFactory().createPlayer("computer",username,1);
-        }
-        return reversiBoard.getPlayerFactory().getPlayers();
+    public Player registerPlayers(String username) {
+        reversiBoard.getPlayerFactory().createPlayer("remote",username,-1);
+        reversiBoard.getPlayerFactory().createPlayer("computer",username,1);
+        return reversiBoard.getPlayerFactory().getPlayers().stream().filter(x->x.getName().equalsIgnoreCase(username)).findAny().get();
     }
 
     public void startGame() {
@@ -68,11 +66,6 @@ public class Reversi {
         return reversiBoard;
     }
 
-    public boolean doMove(int[][] board, MoveDetails details) {
-        StratgyContext context = new StratgyContext(new StrategyImplementation());
-        return context.execute(board, details);
-    }
-
 
     public void playHumanMove(int[][] board,MoveDetails details){
         StrategyFactory factory= new StrategyImplFactory();
@@ -99,5 +92,12 @@ public class Reversi {
        command.execute();
     }
 
+    public Point movePoint(Point details) throws Exception {
+        MoveDetails remotePlayerMove = new MoveDetails(details.getX(),details.getY(), -1);
+        move(remotePlayerMove);
 
+        MoveDetails computerMove = generateComputerMove();
+        move(computerMove);
+        return new Point(computerMove.getX(), computerMove.getY());
+    }
 }

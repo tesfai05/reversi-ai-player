@@ -11,6 +11,7 @@ import com.asd.reversi.reversi.model.ReversiBoard;
 import com.asd.reversi.reversi.strategy.Strategy;
 import com.asd.reversi.reversi.strategy.StratgyContext;
 import com.asd.reversi.reversi.player.Player;
+import com.asd.reversi.reversi.util.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,11 +37,15 @@ public class PlayRoomService {
         return reversi.move(details);
     }
 
-    public List<Player> registerPlayerReturnResult(String username) {
-        return reversi.registerPlayerAsResult(username);
+    public Player registerPlayers(String username) {
+        return reversi.registerPlayers(username);
     }
 
     public MoveDetails generateMove() {
        return reversi.generateComputerMove();
+    }
+
+    public Point movePoint(Point details) throws Exception {
+        return reversi.movePoint(details);
     }
 }
