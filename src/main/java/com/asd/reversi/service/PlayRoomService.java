@@ -43,4 +43,8 @@ public class PlayRoomService {
     public ReversiBoard getBoard() {
         return reversi.getBoard();
     }
+
+    public void restartGame() {
+       reversi.restartGame();
+    }
 }

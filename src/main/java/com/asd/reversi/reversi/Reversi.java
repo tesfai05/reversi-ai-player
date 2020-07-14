@@ -103,4 +103,8 @@ public class Reversi {
     public ReversiBoard getBoard() {
         return reversiBoard;
     }
+
+    public void restartGame() {
+        reversiBoard.reset();
+    }
 }

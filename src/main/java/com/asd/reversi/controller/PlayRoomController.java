@@ -54,8 +54,15 @@ public class PlayRoomController {
         return p;
     }
 
+    @CrossOrigin
+    @GetMapping("/resetGame")
+    public Response resetGame() {
+        playRoomService.restartGame();
+        return new Response("Game Restarted Register Players And Start Playing :)");
+    }
+
     @PostMapping("/generateMove")
-    public MoveDetails moveAsJSON() throws Exception {
+    public MoveDetails moveAsJSON() {
         return playRoomService.generateMove();
     }
 }
