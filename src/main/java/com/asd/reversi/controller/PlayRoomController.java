@@ -50,7 +50,7 @@ public class PlayRoomController {
     @PostMapping("/makeMove")
     public Point moveAsJSON(@RequestBody Point details) throws Exception {
         Point p = playRoomService.movePoint(details);
-        getBoard();
+        //getBoard();
         return p;
     }
 

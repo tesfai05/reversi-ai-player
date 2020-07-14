@@ -22,6 +22,30 @@ function connect() {
     });
 }
 
+function test() {
+    $.post("https://reversi-app-asd.herokuapp.com/registerPlayer", {username:"test"})
+        .done(function(data) {
+            console.log(data);
+    });
+}
+
+function move() {
+    $.post("https://reversi-app-asd.herokuapp.com/makeMove", {x:3,y:2})
+        .done(function(data) {
+            console.log(data);
+        });
+
+    $.post({
+        url: 'https://reversi-app-asd.herokuapp.com/makeMove',
+        type: 'POST',
+        data: {
+                x:3,
+                y:2
+            },
+        dataType: 'json'
+    });
+}
+
 function disconnect() {
     if (stompClient !== null) {
         stompClient.disconnect();
