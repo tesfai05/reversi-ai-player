@@ -92,8 +92,13 @@ public class Reversi {
     }
 
     public Point movePoint(Point details) throws Exception {
-        MoveDetails remotePlayerMove = new MoveDetails(details.getX(),details.getY(), -1);
-        move(remotePlayerMove);
+        MoveDetails remotePlayerMove = null;
+        if(details.getX() != -1 && details.getY() != -1){
+            remotePlayerMove = new MoveDetails(details.getX(),details.getY(), -1);
+            move(remotePlayerMove);
+        } else {
+            Helper.setTurn(remotePlayerMove);
+        }
 
         MoveDetails computerMove = generateComputerMove();
         move(computerMove);
