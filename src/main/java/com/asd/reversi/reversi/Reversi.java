@@ -42,7 +42,7 @@ public class Reversi {
     }
 
     public ReversiBoard move(MoveDetails details) throws Exception {
-        if (details.getX() != -5 && details.getY() != -5) { // Error Check Temporarily
+        if (details.getX() != -1 && details.getY() != -1) { // Error Check Temporarily
             if (!isItPlayersTurn(details)) {
                 throw new Exception("It's not your turn");
             }
@@ -101,7 +101,12 @@ public class Reversi {
         }
 
         MoveDetails computerMove = generateComputerMove();
-        move(computerMove);
+
+        if(details.getX() != -1 && details.getY() != -1){
+            move(computerMove);
+        } else {
+            Helper.setTurn(computerMove);
+        }
         return new Point(computerMove.getX(), computerMove.getY());
     }
 
