@@ -68,6 +68,11 @@ public class Helper {
         StateContex cont = new StateContex(playerPositive, playerNegative);
         reversiBoard.setState(cont.getState());
         cont.getState();
+        
+        if(isGameFinished(board)) {
+            reversiBoard.setHomeScore(playerPositive);
+            reversiBoard.setRemoteScore(playerNegative);
+        }
     }
 
     public static int getTotalStoneCount(int[][] board){

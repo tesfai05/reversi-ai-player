@@ -140,8 +140,12 @@ function doMove(playRoom) {
     $(".box.next").off('click').on('click', function() { makeMove($(this)); });
     if (playRoom.finished === true) {
         var winner = $('#concludeWinner');
-        winner.append('<p>'+playRoom.winner+'</p>');
+        winner.append('<h4 style="color:green;"> Game Status : '+playRoom.winner+'</h4>');
+        winner.append('<h6 style="color:blue;"> Home Player Score : '+playRoom.homeScore+'</h6>');
+        winner.append('<h6 style="color:red;"> Remote Player Score : '+playRoom.remoteScore+'</h6>')
+        
         winner.css("display:block");
+
         disconnect();
     }
 }
