@@ -22,25 +22,17 @@ function connect() {
     });
 }
 
-function test() {
-    $.post("https://reversi-app-asd.herokuapp.com/registerPlayer", {username:"test"})
-        .done(function(data) {
-            console.log(data);
-    });
-}
+var repeater;
 
-function moveasdasd() {
-    $.post("https://reversi-app-asd.herokuapp.com/makeMove", {"x":3,"y":2})
-        .done(function(data) {
-            console.log(data);
-        });
-
-    $.post({
-        url: 'https://reversi-app-asd.herokuapp.com/makeMove',
-        type: 'POST',
-        data: { x:3, y:2 },
-        dataType: 'json'
-    });
+function watch() {
+    $("#gameState").css("display", "block");
+    $("#startForm").css("display", "none");
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", "/getBoard", false ); // false for synchronous request
+    xmlHttp.send();
+    initial(JSON.parse(xmlHttp.response));
+    doMove(JSON.parse(xmlHttp.response));
+    repeater = setTimeout(watch, 1000);
 }
 
 function disconnect() {
@@ -54,10 +46,17 @@ function disconnect() {
 
 function register() {
     myUsername = $("#username").val();
-    stompClient.send("/game/registerPlayer", {}, myUsername);
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "POST", "/registerPlayer?username="+myUsername, false ); // false for synchronous request
+    xmlHttp.send();
+    xmlHttp.abort();
+    xmlHttp.open( "GET", "/getBoard", false ); // false for synchronous request
+    xmlHttp.send();
+    initial(JSON.parse(xmlHttp.response));
 }
 
 function initial(playRoom) {
+    console.log()
     var board = $("#board");
     board.empty();
     if (playRoom.playerA !== null && playRoom.playerB !== null) {
@@ -89,7 +88,7 @@ function initial(playRoom) {
                 );
             }
         }
-        $( ".box.next" ).click(function() { move($(this)); });
+        $( ".box.next" ).click(function() { makeMove($(this)); });
         console.log("Board is just been drawn!");
     }
 }
@@ -99,6 +98,20 @@ function move(box) {
     var x = parseInt(id[4]);
     var y = parseInt(id[5]);
     stompClient.send("/game/move", {}, JSON.stringify({'player': myFlag, 'x': x, 'y': y}));
+}
+
+function makeMove(box) {
+    var id = box.attr('id');
+    var x = parseInt(id[4]);
+    var y = parseInt(id[5]);
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "POST", "/makeMove", false ); // false for synchronous request
+    xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlHttp.send(JSON.stringify({x,y}));
+    xmlHttp.abort();
+    xmlHttp.open( "GET", "/getBoard", false ); // false for synchronous request
+    xmlHttp.send();
+    doMove(JSON.parse(xmlHttp.response));
 }
 
 function doMove(playRoom) {
@@ -124,7 +137,7 @@ function doMove(playRoom) {
     var turn = (playRoom.turn === myFlag) ? 'Your turn' : (otherUsername + "'s turn");
     $('#turn').html(turn);
     $('.box').off('click');
-    $(".box.next").off('click').on('click', function() { move($(this)); });
+    $(".box.next").off('click').on('click', function() { makeMove($(this)); });
     if (playRoom.finished === true) {
         var winner = $('#concludeWinner');
         winner.append('<p>'+playRoom.winner+'</p>');
@@ -136,6 +149,9 @@ function doMove(playRoom) {
 $(function () {
     $("form").on('submit', function (e) {
         e.preventDefault();
+    });
+    $("#viewer").click(function () {
+        watch();
     });
     $( "#start" ).click(function() { connect(); });
 });

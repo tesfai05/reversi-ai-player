@@ -30,7 +30,7 @@ public class PlayRoomController {
         return playRoomService.move(details);
     }
 
-
+    @GetMapping("/getBoard")
     private ReversiBoard getBoard() {
         return playRoomService.getBoard();
     }
