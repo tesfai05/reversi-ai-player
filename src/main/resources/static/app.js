@@ -29,8 +29,8 @@ function test() {
     });
 }
 
-function move() {
-    $.post("https://reversi-app-asd.herokuapp.com/makeMove", {x:3,y:2})
+function moveasdasd() {
+    $.post("https://reversi-app-asd.herokuapp.com/makeMove", {"x":3,"y":2})
         .done(function(data) {
             console.log(data);
         });
@@ -38,10 +38,7 @@ function move() {
     $.post({
         url: 'https://reversi-app-asd.herokuapp.com/makeMove',
         type: 'POST',
-        data: {
-                x:3,
-                y:2
-            },
+        data: { x:3, y:2 },
         dataType: 'json'
     });
 }

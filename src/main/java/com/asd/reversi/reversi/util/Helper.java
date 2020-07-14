@@ -315,7 +315,7 @@ public class Helper {
             }
         }
 
-        details = ComputerPlayer.solve(reversiBoard.getBoard(), computerPlayer.getFlag(), 3,new RealTimeEval(new int[][] {
+        details = ComputerPlayer.solve(reversiBoard.getBoard(), computerPlayer.getFlag(), 5,new RealTimeEval(new int[][] {
                 {8, 85, -40, 10, 210, 520},
                 {8, 85, -40, 10, 210, 520},
                 {33, -50, -15, 4, 416, 2153},
