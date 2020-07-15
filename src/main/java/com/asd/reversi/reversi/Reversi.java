@@ -100,7 +100,7 @@ public class Reversi {
         }
 
         MoveDetails computerMove = generateComputerMove();
-        if(details.getX() != -1 && details.getY() != -1){
+        if(computerMove.getX() != -1 && computerMove.getY() != -1){
             move(computerMove);
         } else {
             Helper.setTurn(computerMove);
