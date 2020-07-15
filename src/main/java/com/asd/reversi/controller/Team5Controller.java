@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/team4")
+@RequestMapping("/team5")
 public class Team5Controller {
     @Autowired
     private PlayRoomService playRoomService;
