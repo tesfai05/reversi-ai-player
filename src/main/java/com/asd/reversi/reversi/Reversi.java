@@ -103,7 +103,7 @@ public class Reversi {
         if(computerMove.getX() != -1 && computerMove.getY() != -1){
             move(computerMove);
         } else {
-            //Helper.setTurn(computerMove);
+            Helper.setTurn(computerMove);
         }
         return new Point(computerMove.getX(), computerMove.getY());
     }
