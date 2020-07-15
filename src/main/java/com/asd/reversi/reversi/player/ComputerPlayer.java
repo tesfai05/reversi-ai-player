@@ -15,7 +15,7 @@ public class ComputerPlayer implements Player {
     public ComputerPlayer(String name, int flag){
         this.name = name;
         this.flag = flag;
-        MaxDepth = 4;
+        MaxDepth = 5;
     }
 
     @Override
