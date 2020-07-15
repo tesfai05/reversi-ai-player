@@ -11,6 +11,9 @@ public class BoardModel {
     protected int turn = -1;
     protected boolean finished = false;
     protected String winner = "";
+    
+    protected long remoteScore;
+    protected long homeScore;
 
     public BoardModel(int c, int r) {
         board = new int[c][r];
@@ -23,5 +26,13 @@ public class BoardModel {
 
     public void setWinner(String winner) {
         this.winner = winner;
+    }
+    
+    public void setRemoteScore(long remoteScore) {
+        this.remoteScore = remoteScore;
+    }
+
+    public void setHomeScore(long homeScore) {
+        this.homeScore = homeScore;
     }
 }
