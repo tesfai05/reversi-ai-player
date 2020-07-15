@@ -7,7 +7,7 @@ public class StateDraw  implements IState{
 
 @Override
 public String checkWinOrDraw() {
-	return "the game is drawn ";
+	return "Game Tie";
 
 }
 

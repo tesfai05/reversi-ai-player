@@ -6,6 +6,6 @@ public class StateWinPositive implements IState {
 
 	@Override
 	public String checkWinOrDraw() {
-		return "white won the game";
+		return "Home Player Won";
 	}
 }

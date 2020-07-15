@@ -6,7 +6,7 @@ public class StateWinNegative implements IState  {
 
 	@Override
 	public String checkWinOrDraw() {
-		return  "Black stone won the game ";
+		return  "Remote Player Won";
 	}
 
 
