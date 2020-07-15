@@ -25,7 +25,7 @@ public class ReversiBoard extends BoardModel{
         board[4][3] = -1;
         board[3][4] = -1;
         next = new int[8][8];
-        turn = 1;
+        turn = -1;
         finished = false;
     }
 
@@ -53,8 +53,5 @@ public class ReversiBoard extends BoardModel{
         this.state = state;
         this.setWinner(state.checkWinOrDraw());
     }
-
-//    private void setWinner(String checkWinOrDraw) {
-//    }
 
 }

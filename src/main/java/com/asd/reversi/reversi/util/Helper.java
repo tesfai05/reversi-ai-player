@@ -332,10 +332,7 @@ public class Helper {
                 {4, 50, 31, 0, 27, 192},
                 {8, 500, 77, 0, 36, 299}}, new int[] {0, 55, 56, 57, 58, 59, 60, 61, 62, 63}));
         //Move Checking
-        if(details == null) { details = new MoveDetails(-5,-5,-1);}
-        if (details.getX() == -5 && details.getY() == -5) {
-            setTurn(details);
-        }
+        if(details == null) { details = new MoveDetails(-1,-1,1);}
         return details;
     }
 
@@ -346,8 +343,8 @@ public class Helper {
     }
 
     public static void setTurn(MoveDetails details) {
-        if (canOtherPlayerMove(details.getPlayer())) {
+//        if (canOtherPlayerMove(details.getPlayer())) {
             reversiBoard.setTurn(-reversiBoard.getTurn());
-        }
+//        }
     }
 }
