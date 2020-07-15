@@ -2,13 +2,16 @@ package com.asd.reversi.controller;
 
 import com.asd.reversi.reversi.model.MoveDetails;
 import com.asd.reversi.reversi.model.ReversiBoard;
+import com.asd.reversi.reversi.player.Player;
+import com.asd.reversi.reversi.util.Point;
+import com.asd.reversi.reversi.util.Response;
 import com.asd.reversi.service.PlayRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 public class PlayRoomController {
 
     @Autowired
@@ -25,5 +28,41 @@ public class PlayRoomController {
     @SendTo("/topic/move")
     public ReversiBoard move(MoveDetails details) throws Exception {
         return playRoomService.move(details);
+    }
+
+    @GetMapping("/getBoard")
+    private ReversiBoard getBoard() {
+        return playRoomService.getBoard();
+    }
+
+    @CrossOrigin
+    @PostMapping("/registerPlayer")
+    public Response registerAsJSON(String username) {
+        playRoomService.startGame();
+        Player p = playRoomService.registerPlayers(username);
+        if(p != null)
+            return new Response("player "+p.getName()+ " registered");
+        else
+            return new Response("Error on registering");
+    }
+
+    @CrossOrigin
+    @PostMapping("/makeMove")
+    public Point moveAsJSON(@RequestBody Point details) throws Exception {
+        Point p = playRoomService.movePoint(details);
+        //getBoard();
+        return p;
+    }
+
+    @CrossOrigin
+    @GetMapping("/resetGame")
+    public Response resetGame() {
+        playRoomService.restartGame();
+        return new Response("Game Restarted Register Players And Start Playing :)");
+    }
+
+    @PostMapping("/generateMove")
+    public MoveDetails moveAsJSON() {
+        return playRoomService.generateMove();
     }
 }

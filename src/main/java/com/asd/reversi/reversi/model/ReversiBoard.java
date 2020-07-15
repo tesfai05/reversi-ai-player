@@ -25,13 +25,12 @@ public class ReversiBoard extends BoardModel{
         board[4][3] = -1;
         board[3][4] = -1;
         next = new int[8][8];
-        turn = 1;
+        turn = -1;
         finished = false;
     }
 
     public static ReversiBoard getInstance() {
-    	singletonPlayRoom single =  singletonPlayRoom.INSTANCE;
-    	return single.getPlayroom();
+    	return SingletonPlayRoom.getPlayroom();
     }
 
     public PlayerFactory getPlayerFactory() {
@@ -39,7 +38,9 @@ public class ReversiBoard extends BoardModel{
     }
 
     public Player getPlayerA(){
-        return getPlayerFactory().getPlayers().get(0);
+        if (getPlayerFactory().getPlayers().size() > 0)
+            return getPlayerFactory().getPlayers().get(0);
+        return null;
     }
 
     public Player getPlayerB(){

@@ -19,6 +19,11 @@ public class PlayerFactory {
             players.add(p);
             return p;
         }
+        if(player.equalsIgnoreCase("remote")){
+            Player p = new RemotePlayer(name, flag);
+            players.add(p);
+            return p;
+        }
         return null;
     }
 
