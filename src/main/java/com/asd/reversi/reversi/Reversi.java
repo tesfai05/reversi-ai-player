@@ -99,7 +99,8 @@ public class Reversi {
             Helper.setTurn(remotePlayerMove);
         }
 
-        MoveDetails computerMove = generateComputerMove();
+        MoveDetails moveDetails = generateComputerMove();
+        MoveDetails computerMove = new MoveDetails(moveDetails.getX(), moveDetails.getY(), moveDetails.getPlayer());
         if(computerMove.getX() != -1 && computerMove.getY() != -1){
             move(computerMove);
         } else {
