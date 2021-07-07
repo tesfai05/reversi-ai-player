@@ -40,9 +40,9 @@ public class PlayRoomService {
         return reversi.movePoint(details);
     }
 
-    public Point movePointTeam3(Point details) throws Exception {
-        return reversi.movePoint(details);
-    }
+//    public Point movePointTeam3(Point details) throws Exception {
+//        return reversi.movePoint(details);
+//    }
 
     public ReversiBoard getBoard() {
         return reversi.getBoard();

@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+reversi (1).iml
+=======
+>>>>>>> a44bac514117d307691e5e86a4be7c5f7c63317e
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -26,8 +30,13 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
+<<<<<<< HEAD
+!**/src/main/**/build/
+!**/src/test/**/build/
+=======
 /src/main/**/build/
 /src/test/**/build/
+>>>>>>> a44bac514117d307691e5e86a4be7c5f7c63317e
 
 ### VS Code ###
 .vscode/

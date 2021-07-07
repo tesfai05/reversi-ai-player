@@ -37,7 +37,7 @@ public class PlayRoomController {
 
     @CrossOrigin
     @PostMapping("/registerPlayer")
-    public Response registerAsJSON(String username) {
+    public Response registerAsJSON(@RequestBody String username) {
         playRoomService.startGame();
         Player p = playRoomService.registerPlayers(username);
         if(p != null)

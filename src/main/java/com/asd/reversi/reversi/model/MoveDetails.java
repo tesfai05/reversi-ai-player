@@ -8,6 +8,7 @@ public class MoveDetails {
     private int x;
     private int y;
 
+
     public MoveDetails(int x, int y){
         this.x = x;
         this.y = y;
