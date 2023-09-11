@@ -6,7 +6,7 @@ import com.asd.reversi.reversi.model.ReversiBoard;
 import com.asd.reversi.reversi.player.ComputerPlayer;
 import com.asd.reversi.reversi.player.Player;
 import com.asd.reversi.reversi.state.StateContex;
-import com.asd.reversi.reversi.strategy.StrategyImplementation;
+import com.asd.reversi.reversi.strategy.*;
 import com.asd.reversi.reversi.strategy.StratgyContext;
 
 import java.util.ArrayList;
@@ -46,7 +46,9 @@ public class Helper {
     }
 
     public static boolean doMove(int[][] board, MoveDetails details) {
+
         StratgyContext context = new StratgyContext(new StrategyImplementation()) ;
+
         return context.execute(board, details);
     }
 
